@@ -1,19 +1,46 @@
 import React, { Component } from 'react'
 
 class Formulaire extends Component {
-    hundleSubmit = event =>{
-        console.log('Submit')
+    state ={
+        message:'',
+        length: this.props.length
     }
+
+    createMessage = () =>{
+        const { addMessage, pseudo } = this.props
+
+        const message={
+            pseudo,
+            message: this.state.message
+        }
+
+        addMessage(message)
+
+        this.setState({ message:'' })
+    }
+
+    handleSubmit = event =>{
+        event.prevenetDefault()
+        this.createMessage()
+    }
+
+    handleChange = event =>{
+        const message = event.target.value
+        this.setState({ message })
+    }
+     
     render (){
         return(
             <form
                 className='form'
-                 onSubmit={this.hundleSubmit}>
+                 onSubmit={this.handleSubmit}>
                     <textarea
+                    value={this.state.message}
+                    onChange={this.handleChange}
                         required
                         maxLength={140}/>
                     <div className='info'>
-                        140
+                        {this.state.length}
                     </div>
                     <button>
                         Envoyer!
