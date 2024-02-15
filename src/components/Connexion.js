@@ -1,40 +1,42 @@
-import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom'
+import React, { Component } from 'react';
+import { Navigate } from 'react-router-dom';
 
 class Connexion extends Component {
-    state ={
+    state = {
         pseudo: '',
         goToChat: false
-    }
+    };
 
-    handleChange = event =>{
-        const pseudo = event.target.value
-        this.setState({ pseudo })
-    }
+    handleChange = (event) => {
+        const pseudo = event.target.value;
+        this.setState({ pseudo });
+    };
 
-    handleSubmit = event =>{
-        event.preventDefault()
-        this.setState({ goToChat:true })
-    }
+    handleSubmit = (event) => {
+        event.preventDefault();
+        this.setState({ goToChat: true });
+    };
 
-    render(){
-        if(this.state.goToChat){
-            return <Redirect push to={`/pseudo/${this.state.pseudo}`}></Redirect>
+    render() {
+        if (this.state.goToChat) {
+            // Use Navigate instead of Redirect
+            return <Navigate to={`/pseudo/${this.state.pseudo}`} />;
         }
-        return(
+        return (
             <div className='connexionBox'>
                 <form className='connexion' onSubmit={this.handleSubmit}>
-                    <input 
-                        value ={this.state.pseudo}
+                    <input
+                        value={this.state.pseudo}
                         onChange={this.handleChange}
                         placeholder='Pseudo'
-                        type='text' 
-                        required />
+                        type='text'
+                        required
+                    />
                     <button type='submit'>Go</button>
                 </form>
             </div>
-        )
+        );
     }
 }
 
-export default Connexion
+export default Connexion;
