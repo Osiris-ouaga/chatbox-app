@@ -20,7 +20,7 @@ class Formulaire extends Component {
     }
 
     handleSubmit = event =>{
-        event.prevenetDefault()
+        event.preventDefault()
         this.createMessage()
     }
 
